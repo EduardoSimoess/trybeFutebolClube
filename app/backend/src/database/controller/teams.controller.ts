@@ -8,4 +8,10 @@ export default class TeamController {
     const teams = await service.getTeams();
     return res.status(200).json(teams);
   };
+
+  returnTeamById = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const team = await service.getTeamById(id);
+    return res.status(200).json(team);
+  };
 }
