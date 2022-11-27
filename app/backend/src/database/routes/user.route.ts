@@ -8,6 +8,6 @@ const controller = new UserController();
 
 userRouter.post('/login', userMiddleware, controller.returnLogin);
 
-userRouter.get('/login', controller.returnUser);
+userRouter.get('/login/validate', controller.returnUser);
 
 export default userRouter;
