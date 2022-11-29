@@ -46,4 +46,12 @@ export default class MatchService {
     await Match.update({ inProgress: false }, { where: { id } });
     return 'Finished';
   };
+
+  updateScore = async (stringId: string, homeTeamGoals: number, awayTeamGoals: number) => {
+    const id = Number(stringId);
+    const newScore = await Match.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
+    if (newScore) {
+      return 200;
+    }
+  };
 }

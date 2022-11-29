@@ -10,6 +10,8 @@ matchesRouter.get('/', controller.returnMatchesByByProgress);
 
 matchesRouter.post('/', matchesMiddleware, tokenMiddleware, controller.createNewMatch);
 
+matchesRouter.patch('/:id', controller.updateScore);
+
 matchesRouter.patch('/:id/finish', controller.updateToFinished);
 
 export default matchesRouter;
