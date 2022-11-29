@@ -40,4 +40,10 @@ export default class MatchService {
       return newMatch;
     }
   };
+
+  updateTofinished = async (strinId: string) => {
+    const id = Number(strinId);
+    await Match.update({ inProgress: false }, { where: { id } });
+    return 'Finished';
+  };
 }

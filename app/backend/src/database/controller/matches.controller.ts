@@ -25,4 +25,10 @@ export default class MatchController {
 
     return res.status(201).json(newTeam);
   };
+
+  updateToFinished = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const message = await service.updateTofinished(id);
+    return res.status(200).json({ message });
+  };
 }

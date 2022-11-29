@@ -8,4 +8,6 @@ matchesRouter.get('/', controller.returnMatchesByByProgress);
 
 matchesRouter.post('/', controller.createNewMatch);
 
+matchesRouter.patch('/:id/finish', controller.updateToFinished);
+
 export default matchesRouter;
