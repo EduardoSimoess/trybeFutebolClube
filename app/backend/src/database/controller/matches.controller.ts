@@ -4,13 +4,17 @@ import MatchService from '../service/matches.service';
 const service = new MatchService();
 
 export default class MatchController {
-  returnMatches = async (req: Request, res: Response) => {
-    const matches = await service.getMatches();
-    return res.status(200).json(matches);
-  };
+  // returnMatches = async (req: Request, res: Response) => {
+  //   const matches = await service.getMatches();
+  //   return res.status(200).json(matches);
+  // };
 
   returnMatchesByByProgress = async (req: Request, res: Response) => {
     const { inProgress } = req.query;
+    if (!inProgress) {
+      const matches = await service.getMatches();
+      return res.status(200).json(matches);
+    }
     const matches = await service.getMatchesByProgrees(inProgress as unknown as string);
     return res.status(200).json(matches);
   };

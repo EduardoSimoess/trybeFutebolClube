@@ -4,8 +4,8 @@ import MatchController from '../controller/matches.controller';
 const matchesRouter = express.Router();
 const controller = new MatchController();
 
-matchesRouter.get('/', controller.returnMatches);
+matchesRouter.get('/', controller.returnMatchesByByProgress);
 
-matchesRouter.get('/:matches', controller.returnMatchesByByProgress);
+// matchesRouter.get('/', controller.returnMatches);
 
 export default matchesRouter;
