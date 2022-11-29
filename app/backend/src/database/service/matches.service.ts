@@ -1,7 +1,8 @@
-// import IMatch from '../Interfaces/IMatch';
 import Match from '../models/Match';
 import Team from '../models/Team';
+import UserService from './user.service';
 
+const userService = new UserService();
 export default class MatchService {
   getMatches = async () => {
     const matches = await Match.findAll(
@@ -26,5 +27,17 @@ export default class MatchService {
       ],
     });
     return matches;
+  };
+
+  createMatchInPogress = async (
+    newObj: object,
+    authorization: string,
+  ) => {
+    const role = await userService.getUser(authorization);
+    if (role) {
+      const obj = { ...newObj, inProgress: true };
+      const newMatch = await Match.create(obj);
+      return newMatch;
+    }
   };
 }

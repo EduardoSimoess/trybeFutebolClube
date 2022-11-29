@@ -9,6 +9,5 @@ import * as jwt from 'jsonwebtoken';
 export default function verifyToken(token: string) {
   const secret = process.env.JWT_SECRET || 'mySecret';
   const data = jwt.verify(token, secret);
-  // console.log(data);
   return data;
 }
