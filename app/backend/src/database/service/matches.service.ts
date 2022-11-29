@@ -12,4 +12,18 @@ export default class MatchService {
     );
     return matches;
   };
+
+  getMatchesByProgrees = async (inProgress: string) => {
+    let inProgressBoll = true;
+    if (inProgress === 'false') {
+      inProgressBoll = false;
+    }
+    const matches = await Match.findAll({ where: { inProgress: inProgressBoll },
+      include: [
+        { model: Team, as: 'teamHome', attributes: { exclude: ['id'] } },
+        { model: Team, as: 'teamAway', attributes: { exclude: ['id'] } },
+      ],
+    });
+    return matches;
+  };
 }

@@ -6,4 +6,6 @@ const controller = new MatchController();
 
 matchesRouter.get('/', controller.returnMatches);
 
+matchesRouter.get('/:matches', controller.returnMatchesByByProgress);
+
 export default matchesRouter;
