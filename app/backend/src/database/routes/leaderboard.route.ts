@@ -8,4 +8,6 @@ leaderboardRouter.get('/home', controller.returnClassification);
 
 leaderboardRouter.get('/away', controller.returnClassificationAway);
 
+leaderboardRouter.get('/', controller.returnClassificationGeneral);
+
 export default leaderboardRouter;

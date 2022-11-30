@@ -13,4 +13,9 @@ export default class LeaderboardController {
     const classification = await service.awayClassification();
     return res.status(200).json(classification);
   };
+
+  returnClassificationGeneral = async (req: Request, res: Response) => {
+    const classification = await service.generalClassification();
+    return res.status(200).json(classification);
+  };
 }

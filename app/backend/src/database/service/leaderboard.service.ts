@@ -127,4 +127,36 @@ export default class LeaderboardService {
 
     return ordered;
   };
+
+  generalStatistics = (awayData: ILeaderboards, homeData: ILeaderboards) => {
+    const obj = {
+      name: awayData.name,
+      totalPoints: awayData.totalPoints + homeData.totalPoints,
+      totalVictories: awayData.totalVictories + homeData.totalVictories,
+      totalDraws: awayData.totalDraws + homeData.totalDraws,
+      totalLosses: awayData.totalLosses + homeData.totalLosses,
+      goalsFavor: awayData.goalsFavor + homeData.goalsFavor,
+      goalsOwn: awayData.goalsOwn + homeData.goalsOwn,
+      totalGames: awayData.totalGames + homeData.totalGames,
+      goalsBalance: awayData.goalsBalance + homeData.goalsBalance,
+      efficiency: Number((((awayData.totalPoints + homeData.totalPoints)
+      / ((awayData.totalGames + homeData.totalGames) * 3)) * 100).toFixed(2)),
+    };
+    return obj;
+  };
+
+  generalClassification = async () => {
+    const away = await this.awayClassification();
+    const home = await this.homeClassification();
+    const total = away.map((awayData) => {
+      const homeData = home.find((homeInfos) => awayData.name === homeInfos.name);
+      if (homeData) {
+        const obj = this.generalStatistics(awayData, homeData);
+        return obj;
+      }
+      return awayData;
+    });
+    const ordered = total.sort(this.orderArray);
+    return ordered;
+  };
 }
