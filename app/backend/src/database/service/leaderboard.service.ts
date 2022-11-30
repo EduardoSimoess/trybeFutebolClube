@@ -49,11 +49,20 @@ export default class LeaderboardService {
     return 0;
   };
 
+  orderByVictories = (a: ILeaderboards, b: ILeaderboards) => {
+    if (a.totalVictories < b.totalVictories) return 1;
+    if (a.totalVictories > b.totalVictories) return -1;
+    if (a.totalVictories === b.totalVictories) {
+      return this.orderByBalace(a, b);
+    }
+    return 0;
+  };
+
   orderArray = (a: ILeaderboards, b: ILeaderboards) => {
     if (a.totalPoints < b.totalPoints) return 1;
     if (a.totalPoints > b.totalPoints) return -1;
     if (a.totalPoints === b.totalPoints) {
-      return this.orderByBalace(a, b);
+      return this.orderByVictories(a, b);
     }
     return 0;
   };
