@@ -30,6 +30,23 @@ export default class LeaderboardService {
     return obj;
   };
 
+  objBilderAway = (team: ITeam, awayMatches: IMatch[]) => {
+    const obj = { points: 0, victories: 0, draws: 0, losses: 0, goalsFavor: 0, goalsOwn: 0 };
+    for (let i = 0; i < awayMatches.length; i += 1) {
+      obj.goalsFavor += awayMatches[i].awayTeamGoals;
+      obj.goalsOwn += awayMatches[i].homeTeamGoals;
+      if (awayMatches[i].homeTeamGoals < awayMatches[i].awayTeamGoals) {
+        obj.points += 3;
+        obj.victories += 1;
+      } else if (awayMatches[i]
+        .homeTeamGoals === awayMatches[i].awayTeamGoals) {
+        obj.points += 1;
+        obj.draws += 1;
+      } else obj.losses += 1;
+    }
+    return obj;
+  };
+
   orderByFavor = (a: ILeaderboards, b: ILeaderboards) => {
     if (a.goalsFavor < b.goalsFavor) return 1;
     if (a.goalsFavor > b.goalsFavor) return -1;
@@ -80,6 +97,28 @@ export default class LeaderboardService {
         goalsFavor: obj.goalsFavor,
         goalsOwn: obj.goalsOwn };
       const array = this.calcuate(fixed, team, homeMatches);
+      return array;
+    });
+
+    const ordered = classificationUnordered.sort(this.orderArray);
+    // console.log(classificationUnordered.sort(this.orderArray));
+
+    return ordered;
+  };
+
+  awayClassification = async () => {
+    const teams = await Team.findAll();
+    const finishedMatches = await matchesService.getMatchesByProgrees('false');
+    const classificationUnordered = teams.map((team) => {
+      const awayMatches = finishedMatches.filter((match) => match.awayTeam === (team.id));
+      const obj = this.objBilderAway(team, awayMatches);
+      const fixed = { totalPoints: obj.points,
+        totalVictories: obj.victories,
+        totalDraws: obj.draws,
+        totalLosses: obj.losses,
+        goalsFavor: obj.goalsFavor,
+        goalsOwn: obj.goalsOwn };
+      const array = this.calcuate(fixed, team, awayMatches);
       return array;
     });
 

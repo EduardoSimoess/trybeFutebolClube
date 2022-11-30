@@ -6,4 +6,6 @@ const controller = new LeaderboardController();
 
 leaderboardRouter.get('/home', controller.returnClassification);
 
+leaderboardRouter.get('/away', controller.returnClassificationAway);
+
 export default leaderboardRouter;
