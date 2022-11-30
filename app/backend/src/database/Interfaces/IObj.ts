@@ -4,4 +4,5 @@ export default interface IObj {
   totalLosses: number;
   goalsFavor: number;
   goalsOwn: number;
+  totalDraws: number;
 }
