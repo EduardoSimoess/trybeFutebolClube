@@ -70,9 +70,9 @@ describe('Testes relacionados à seção 1 - Login', () => {
     expect(response.body.message).to.be.equal("Incorrect email or password");
   });
 
-//   it('Testa se o role corretor é retornado com base no token', async () => {
-//     const response = await (await chai.request(app).post('/login/validate')).header({ Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAdXNlci5jb20iLCJwYXNzd29yZCI6InNlY3JldF91c2VyIiwiaWF0IjoxNjY5NTUwODg3LCJleHAiOjE2NzAxNTU2ODd9.HEJ_4zWCfXoPE3uSxvORpWEvm7GXCRoCrpMkcaJwf1s'});
-//     expect(response.status).to.be.equal(200);
-//     expect(response.body.role).to.be.equal("user");
-//   });
+  it('Testa se o role corretor é retornado com base no token', async () => {
+    const response = await chai.request(app).get('/login/validate').set({Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAdXNlci5jb20iLCJwYXNzd29yZCI6InNlY3JldF91c2VyIiwiaWF0IjoxNjcwMzMzODM3LCJleHAiOjE2NzA5Mzg2Mzd9.e60SJtT2ScFprfnd2xxVgulpHqzR78PZD3oCsv5XMEU'});
+    expect(response.status).to.be.equal(200);
+    expect(response.body.role).to.be.equal("user");
+  });
 });
